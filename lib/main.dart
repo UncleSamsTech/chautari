@@ -17,7 +17,7 @@ void main(List<String> args) async {
 
   // test_userDataSerialization();
   // await test_feed_manager();
-  await test_follower_and_following();
+  // await test_follower_and_following();
 
   runApp(const MyApp());
 }

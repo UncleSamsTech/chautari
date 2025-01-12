@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:flutter/material.dart';
 import 'package:tuktak/services/backend_interface.dart';
 import 'package:tuktak/services/interaction_manager.dart';
 
@@ -452,5 +455,21 @@ class FeedManager {
       await InteractionManager.unlikeTheComment(
           musicFetchedData[currentMusicFeed].id, commentId);
     }
+  }
+
+  Future<List<FeedData>> getAllMusicAndSearch(String search, int page) async {
+    final backendInterface = BackendInterface();
+    final urlPath = "music/?page=$page${search.isNotEmpty? "&search=$search": ""}";
+    debugPrint("Url Path: $urlPath");
+    final response = await backendInterface.get(urlPath);
+    final Map<String, dynamic> data = response.data;
+    final List<dynamic> items = data["items"];
+    final feedItems = FeedItem.fromJsonList(items);
+    final List<FeedData> feedDatas = [];
+    for (var element in feedItems) {
+      final feedData = await getMusicById(element.id);
+      feedDatas.add(feedData);
+    }
+    return feedDatas;
   }
 }

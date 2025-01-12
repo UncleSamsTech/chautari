@@ -181,6 +181,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tuktak/services/file_uploader.dart';
 import 'package:tuktak/utils.dart';
 import 'package:tuktak/views/common_components/primary_button.dart';
+import 'package:tuktak/wrapper.dart';
 
 import '../../models/audio_file_model.dart';
 
@@ -388,14 +389,25 @@ class VideoConfirmation extends StatelessWidget {
                                               .validate() ??
                                       false) {
                                     try {
-                                      await fileUploader.uploadVideo(
-                                          titleTextEditingController.text,
-                                          descriptionTextEditingController.text,
-                                          videoFile,
-                                          thumbnailUrl: thumbnailUrl);
-                                      showSucessToast(context,
-                                          "Video Uploaded Successfully !");
-                                      Navigator.of(context).pop();
+                                      // await fileUploader.uploadVideo(
+                                      //     titleTextEditingController.text,
+                                      //     descriptionTextEditingController.text,
+                                      //     videoFile,
+                                      //     thumbnailUrl: thumbnailUrl);
+                                      // showSucessToast(context,
+                                      //     "Video Uploaded Successfully !");
+                                      showUpdatingStatusToast(
+                                          context,
+                                          fileUploader.uploadVideo(
+                                              titleTextEditingController.text,
+                                              descriptionTextEditingController
+                                                  .text,
+                                              videoFile,
+                                              thumbnailUrl: thumbnailUrl));
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) => Wrapper()),
+                                          (route) => false);
                                     } catch (e) {
                                       showErrorToast(context,
                                           "Error occured while uploading video");

@@ -49,6 +49,7 @@ dependencies:
   path_provider: ^2.1.5
   get_thumbnail_video: ^0.7.3
   video_player: ^2.9.2
+  easy_audio_trimmer: ^1.0.2+4
 
 dev_dependencies:
   flutter_test:

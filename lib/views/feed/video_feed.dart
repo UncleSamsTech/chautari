@@ -49,6 +49,7 @@ class _VideoFeedState extends State<VideoFeed> {
               ));
             }
 
+
             _isError = false;
 
             return PlayerView(
